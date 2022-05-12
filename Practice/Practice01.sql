@@ -4,12 +4,14 @@ Practice 01
 
 select *
 from employees;
+
 /*
 문제 1. 
 전체직원의 다음 정보를 조회하세요. 정렬은 입사일(hire_date)의 올림차순(ASC)으로 가장 선임부터 출력이 
 되도록 하세요. 이름(first_name last_name),  월급(salary),  전화번호(phone_number), 입사일
 (hire_date) 순서이고 “이름”, “월급”, “전화번호”, “입사일” 로 컬럼이름을 대체해 보세요.
 */
+
 select  first_name||' '||last_name "이름",
         salary "월급",
         phone_number "전화번호",
@@ -106,6 +108,7 @@ order by length(department_name) desc;
 정확하지 않지만, 지사가 있을 것으로 예상되는 나라들을 나라이름을 대문자로 출력하고
 올림차순(ASC)으로 정렬해 보세오.
 */
+
 select upper(country_name)
 from countries
 order by country_name asc;
