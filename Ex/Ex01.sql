@@ -336,3 +336,9 @@ select  sysdate,
         to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')
 from dual;
 
+--null값 변환
+select  first_name,
+        commission_pct,
+        nvl(commission_pct, 0),
+        nvl2(commission_pct, 100, 0) -- NVL2(컬럼명, not null, null)
+from employees;
