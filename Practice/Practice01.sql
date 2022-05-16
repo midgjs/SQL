@@ -93,6 +93,7 @@ select  first_name,
 from employees
 where first_name like '%s%'
 or first_name like '%S%';
+--where upper(first_name) like '%S%' ; 로 표현가능
 
 /*
 문제8.
