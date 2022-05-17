@@ -12,6 +12,7 @@ Practice02
 
 select count(manager_id) "haveMngCnt"
 from employees;
+--where manager_id is not null;
 
 /*
 문제2. 
