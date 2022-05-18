@@ -146,3 +146,95 @@ where e.department_id = s.department_id
 and e.salary = maxsalary;
 --order by department_id asc; 오류
 --order by first_name; 가능
+
+----------------------------------------------
+--rownum
+
+--급여를 가장 많이 받는 5명의 직원의 이름을 출력하세요
+--급여순으로 정렬
+--1~5등 만 출력
+/* 풀이과정
+select  rownum,
+        employee_id,
+        first_name,
+        salary
+from employees
+where rownum >=1
+and rownum <=5
+;
+
+select  rownum,
+        employee_id,
+        first_name,
+        salary
+from employees;
+
+(select  employee_id,
+        first_name,
+        salary
+from employees
+order by salary desc) ot ;
+*/
+select  rownum,  
+        ot.employee_id, -- ot는 급여별로 미리 정렬되어있음
+        ot.first_name,  -- 미리 정렬된 리스트에 rownum을 매긴다
+        ot.salary       -- 아래의 subquery문에서 사용한 컬럼만 사용할 수 있다.
+from (select  employee_id,
+              first_name,  
+              salary
+      from employees
+      order by salary desc) ot 
+where rownum >=1 -- 1부터해야지만 가능하다 (다른숫자로 하면 처음부터 where절 만족x)
+and rownum <=5   -- ㄴ 해결하는법?
+;
+
+select  rownum,  
+        ot.employee_id, 
+        ot.first_name,  
+        ot.salary       
+from (select  employee_id,
+              first_name,  
+              salary
+      from employees
+      order by salary desc) ot;
+
+select  ort.rn,
+        ort.employee_id,
+        ort.first_name,
+        ort.salary
+from (select  rownum rn,  
+              ot.employee_id, 
+              ot.first_name,  
+              ot.salary       
+      from (select  employee_id,
+                    first_name,  
+                    salary
+            from employees
+            order by salary desc) ot
+      ) ort
+where rn >= 2  -- rownum기능으로 정렬을 하는것 아니다
+and rn <= 5;  -- rownum기능으로 만들어진 rn테이블을 이용해서 정렬
+
+--rownum 예제
+--07년에 입사한 직원중 급여가 많은 직원중 3에서 7등의 이름 급여 입사일은? 
+
+select  ort.rn,
+        ort.first_name,
+        ort.salary,
+        ort.hire_date
+from (select  rownum rn,
+              ot.first_name,
+              ot.salary,
+              ot.hire_date
+      from (select  first_name,
+                    salary,
+                    hire_date
+            from employees
+            where hire_date >='07/01/01'
+            and hire_date <='07/12/31'
+            order by salary desc) ot
+            ) ort -- 생략가능
+where rn>=3
+and rn<=7;
+
+
