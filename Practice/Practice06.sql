@@ -110,6 +110,10 @@ where author_id = 5;
 DELETE FROM author
 WHERE author_id = 4 ; 
 
+--기안 정보 삭제
+DELETE FROM book
+WHERE author_id = 4 ; 
+
 --테이블 불러오기
 select  book_id,
         title,
